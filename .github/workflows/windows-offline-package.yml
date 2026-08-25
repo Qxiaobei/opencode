@@ -64,8 +64,8 @@ jobs:
       - name: Create offline archive
         shell: pwsh
         run: |
-          $archive = Join-Path $env:RUNNER_TEMP "opencode-windows-x64-offline.7z"
-          7z a -t7z -mx=3 $archive . "-xr!.git" "-xr!.opencode-dev"
+          $archive = Join-Path $env:RUNNER_TEMP "opencode-windows-x64-offline.zip"
+          7z a -tzip -mm=Deflate -mx=1 $archive . "-xr!.git" "-xr!.opencode-dev"
 
           if (-not (Test-Path $archive)) {
             throw "Offline archive was not created"
@@ -77,7 +77,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: opencode-windows-x64-offline
-          path: ${{ runner.temp }}/opencode-windows-x64-offline.7z
+          path: ${{ runner.temp }}/opencode-windows-x64-offline.zip
           if-no-files-found: error
           compression-level: 0
           retention-days: 7
