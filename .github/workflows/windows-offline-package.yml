@@ -52,7 +52,7 @@ jobs:
           @'
           @echo off
           set "PATH=%~dp0offline-tools;%PATH%"
-          bun dev serve
+          bun dev serve --hostname 127.0.0.1 --port 4096 --cors http://localhost:3000 --cors http://127.0.0.1:3000
           '@ | Set-Content -Encoding ascii start-api.cmd
 
           @'
