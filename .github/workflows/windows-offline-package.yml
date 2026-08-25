@@ -19,6 +19,10 @@ jobs:
           install-flags: --frozen-lockfile
           node-version: "22"
 
+      - name: Prepare desktop development resources
+        shell: pwsh
+        run: bun run --cwd packages/desktop predev
+
       - name: Verify offline dependencies
         shell: pwsh
         run: |
@@ -27,7 +31,9 @@ jobs:
             "node_modules\@tsconfig\bun\tsconfig.json",
             "node_modules\@sentry\vite-plugin",
             "node_modules\vite\bin\vite.js",
-            "node_modules\@esbuild\win32-x64\esbuild.exe"
+            "node_modules\@esbuild\win32-x64\esbuild.exe",
+            "node_modules\electron\dist\electron.exe",
+            "packages\desktop\resources\opencode-cli.exe"
           )
 
           foreach ($path in $required) {
@@ -39,6 +45,7 @@ jobs:
           node --version
           bun --version
           node_modules\@esbuild\win32-x64\esbuild.exe --version
+          node node_modules\vite\bin\vite.js --version
           bun --cwd packages/opencode --conditions=browser src/index.ts --help
           bun run --cwd packages/app build
 
@@ -65,7 +72,7 @@ jobs:
             pause
             exit /b 1
           )
-          bun run dev:web
+          node "%~dp0node_modules\vite\bin\vite.js" "%~dp0packages\app" --force
           '@ | Set-Content -Encoding ascii start-web.cmd
 
           @'
@@ -73,6 +80,12 @@ jobs:
           set "PATH=%~dp0offline-tools;%PATH%"
           bun dev .
           '@ | Set-Content -Encoding ascii start-tui.cmd
+
+          @'
+          @echo off
+          set "PATH=%~dp0offline-tools;%PATH%"
+          bun run dev:desktop
+          '@ | Set-Content -Encoding ascii start-desktop.cmd
 
       - name: Create offline archive
         shell: pwsh
