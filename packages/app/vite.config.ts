@@ -23,6 +23,14 @@ export default defineConfig({
   plugins: [desktopPlugin, sentry] as any,
   optimizeDeps: {
     include: ["@pierre/diffs/worker", "lru_map"],
+    exclude: [
+      "@opencode-ai/client",
+      "@opencode-ai/core",
+      "@opencode-ai/schema",
+      "@opencode-ai/sdk",
+      "@opencode-ai/session-ui",
+      "@opencode-ai/ui",
+    ],
     needsInterop: ["lru_map"],
   },
   server: {
