@@ -17,6 +17,7 @@ jobs:
         uses: ./.github/actions/setup-bun
         with:
           install-flags: --frozen-lockfile
+          node-version: "22"
 
       - name: Verify offline dependencies
         shell: pwsh
@@ -35,6 +36,7 @@ jobs:
             }
           }
 
+          node --version
           bun --version
           node_modules\@esbuild\win32-x64\esbuild.exe --version
           bun --cwd packages/opencode --conditions=browser src/index.ts --help
