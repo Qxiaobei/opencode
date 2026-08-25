@@ -22,7 +22,7 @@ const sentry =
 export default defineConfig({
   plugins: [desktopPlugin, sentry] as any,
   optimizeDeps: {
-    include: ["lru_map"],
+    include: ["@pierre/diffs/worker", "lru_map"],
     needsInterop: ["lru_map"],
   },
   server: {
