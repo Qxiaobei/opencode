@@ -24,7 +24,8 @@ jobs:
           $required = @(
             "node_modules\@opentui\solid\scripts\preload.js",
             "node_modules\@tsconfig\bun\tsconfig.json",
-            "node_modules\@sentry\vite-plugin"
+            "node_modules\@sentry\vite-plugin",
+            "node_modules\vite\bin\vite.js"
           )
 
           foreach ($path in $required) {
@@ -35,7 +36,6 @@ jobs:
 
           bun --version
           bun --cwd packages/opencode --conditions=browser src/index.ts --help
-          bun --cwd packages/app x vite --version
 
       - name: Include Bun and launchers
         shell: pwsh
