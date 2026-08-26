@@ -33,6 +33,7 @@ jobs:
             "node_modules\vite\bin\vite.js",
             "node_modules\@esbuild\win32-x64\esbuild.exe",
             "node_modules\electron\dist\electron.exe",
+            "node_modules\electron-vite\bin\electron-vite.js",
             "packages\opencode\dist\node\node.js",
             "packages\desktop\resources\opencode-cli.exe"
           )
